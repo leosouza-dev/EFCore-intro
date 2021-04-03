@@ -3,16 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaDePedido.Domain
 {
-    [Table("Clientes")]
+    //[Table("Clientes")]
     public class Cliente
     {
-        [Key]
+        //[Key]
         public int Id { get; set; }
 
-        [Required]
+        //[Required]
         public string Nome { get; set; }
 
-        [Column("Phone")]
+        //[Column("Phone")]
         public string Telefone { get; set; }
         public string CEP { get; set; }
         public string Estado { get; set; }
