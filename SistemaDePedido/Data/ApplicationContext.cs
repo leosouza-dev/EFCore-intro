@@ -9,11 +9,8 @@ namespace SistemaDePedido.Data
     {
         // podemos declarar como dbSet...
         public DbSet<Pedido> Pedidos { get; set; }
-
-        internal void Migrate()
-        {
-            throw new NotImplementedException();
-        }
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
