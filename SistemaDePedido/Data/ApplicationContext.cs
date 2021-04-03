@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemaDePedido.Data.Configurations;
 using SistemaDePedido.Domain;
+using System;
 
 namespace SistemaDePedido.Data
 {
@@ -8,7 +9,17 @@ namespace SistemaDePedido.Data
     {
         // podemos declarar como dbSet...
         public DbSet<Pedido> Pedidos { get; set; }
+
+        internal void Migrate()
+        {
+            throw new NotImplementedException();
+        }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
+
+        public ApplicationContext()
+        {
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
