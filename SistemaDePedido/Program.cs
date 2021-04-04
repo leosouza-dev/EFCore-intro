@@ -18,7 +18,8 @@ namespace SistemaDePedido
             //InserirDados();
             //InserirDadosEmMassa();
             //ConsultarDados();
-            CadastrarPedido();
+            //CadastrarPedido();
+            ConsultarPedidoCarregamentoAdiantado();
         }
 
         private static void InserirDados()
@@ -141,6 +142,18 @@ namespace SistemaDePedido
             db.Pedidos.Add(pedido);
 
             db.SaveChanges();
+        }
+
+        private static void ConsultarPedidoCarregamentoAdiantado()
+        {
+            using var db = new Data.ApplicationContext();
+            var pedidos = db
+                .Pedidos
+                .Include(p => p.Itens)
+                    .ThenInclude(p => p.Produto)
+                .ToList();
+
+            Console.WriteLine(pedidos.Count);
         }
     }
 }
