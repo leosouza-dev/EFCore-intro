@@ -27,7 +27,11 @@ namespace SistemaDePedido.Data
             optionsBuilder
                 .UseLoggerFactory(_logger)
                 .EnableSensitiveDataLogging() // para ver os valores dos parametros no logger do consoler
-                .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CursoEFCore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CursoEFCore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+                    p => p.EnableRetryOnFailure(
+                         maxRetryCount: 2,
+                         maxRetryDelay: TimeSpan.FromSeconds(5),
+                         errorNumbersToAdd: null).MigrationsHistoryTable("curso_ef_core"));
         }
 
         // Ou definir no OnModelCreating...
