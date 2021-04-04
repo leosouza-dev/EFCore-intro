@@ -19,7 +19,8 @@ namespace SistemaDePedido
             //InserirDadosEmMassa();
             //ConsultarDados();
             //CadastrarPedido();
-            ConsultarPedidoCarregamentoAdiantado();
+            //ConsultarPedidoCarregamentoAdiantado();
+            AtualizarDados();
         }
 
         private static void InserirDados()
@@ -154,6 +155,30 @@ namespace SistemaDePedido
                 .ToList();
 
             Console.WriteLine(pedidos.Count);
+        }
+
+        private static void AtualizarDados()
+        {
+            using var db = new Data.ApplicationContext();
+            //var cliente = db.Clientes.Find(1);
+
+            var cliente = new Cliente
+            {
+                Id = 1
+            };
+
+            var clienteDesconectado = new
+            {
+                Nome = "Cliente Desconectado Passo 3",
+                Telefone = "7966669999"
+            };
+
+            db.Attach(cliente); // começa a ser rastrado...pq não fomos no banco para buscar esse cliente
+            db.Entry(cliente).CurrentValues.SetValues(clienteDesconectado); // atualiza só o necessário...
+
+            // não precisa desse comando...
+            //db.Clientes.Update(cliente); // isso atualiza tds os campos - não é uma boa opção
+            db.SaveChanges();
         }
     }
 }
