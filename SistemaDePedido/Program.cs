@@ -17,7 +17,8 @@ namespace SistemaDePedido
 
             //InserirDados();
             //InserirDadosEmMassa();
-            ConsultarDados();
+            //ConsultarDados();
+            CadastrarPedido();
         }
 
         private static void InserirDados()
@@ -108,6 +109,38 @@ namespace SistemaDePedido
                 db.Clientes.Find(cliente.Id);
                 //db.Clientes.FirstOrDefault(p => p.Id == cliente.Id);
             }
+        }
+
+        private static void CadastrarPedido()
+        {
+            using var db = new Data.ApplicationContext();
+
+            var cliente = db.Clientes.FirstOrDefault();
+            var produto = db.Produtos.FirstOrDefault();
+
+            var pedido = new Pedido
+            {
+                ClientId = cliente.Id,
+                IniciadoEM = DateTime.Now,
+                FinalizadoEM = DateTime.Now,
+                Observacao = "Pedido Teste",
+                Status = StatusPedido.Analise,
+                TipoFrete = TipoFrete.SemFrete,
+                Itens = new List<PedidoItem>
+                 {
+                     new PedidoItem
+                     {
+                         ProdutoId = produto.Id,
+                         Desconto = 0,
+                         Quantidade = 1,
+                         Valor = 10,
+                     }
+                 }
+            };
+
+            db.Pedidos.Add(pedido);
+
+            db.SaveChanges();
         }
     }
 }
