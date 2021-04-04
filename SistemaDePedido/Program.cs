@@ -20,7 +20,8 @@ namespace SistemaDePedido
             //ConsultarDados();
             //CadastrarPedido();
             //ConsultarPedidoCarregamentoAdiantado();
-            AtualizarDados();
+            //AtualizarDados();
+            RemoverRegistro();
         }
 
         private static void InserirDados()
@@ -178,6 +179,19 @@ namespace SistemaDePedido
 
             // não precisa desse comando...
             //db.Clientes.Update(cliente); // isso atualiza tds os campos - não é uma boa opção
+            db.SaveChanges();
+        }
+
+        private static void RemoverRegistro()
+        {
+            using var db = new Data.ApplicationContext();
+
+            //var cliente = db.Clientes.Find(2);
+            var cliente = new Cliente { Id = 3 };
+            //db.Clientes.Remove(cliente);
+            //db.Remove(cliente);
+            db.Entry(cliente).State = EntityState.Deleted;
+
             db.SaveChanges();
         }
     }
